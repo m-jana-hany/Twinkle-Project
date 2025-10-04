@@ -6,7 +6,7 @@
   **The Future of LA is Data-Driven and Resilient.**
 </p>
 
-[![Live Demo](https://img.shields.io/badge/LIVE-DEPLOYMENT-blueviolet?style=for-the-badge)](**[[INSERT YOUR GITHUB PAGES LIVE LINK HERE](https://m-jana-hany.github.io/Twinkle-Project/twinkle.html)]**)
+[![Live Demo](https://img.shields.io/badge/LIVE-DEPLOYMENT-blueviolet?style=for-the-badge)](**[[Our Website here](https://m-jana-hany.github.io/Twinkle-Project/twinkle.html)]**)
 [![Space Apps Cairo 2025](https://img.shields.io/badge/NASA%20Space%20Apps-Cairo%202025-orange?style=for-the-badge)](https://www.spaceappschallenge.org/)
 
 ---
