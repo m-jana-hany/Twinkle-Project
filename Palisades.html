@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pacific Palisades: The Problem</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/phosphor-icons@1.4.2/src/css/icons.css" rel="stylesheet">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #f8f8f8;
+            background-image: url('img/pacific.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh; /* Ensure the body covers the full viewport height */
+        }
+        
+        .navbar {
+            background-color: #030303;
+        }
+
+        /* NEW: Styling for the content overlay */
+        .content-overlay {
+            /* Full height and width, centers content, with a dark, blurred background */
+            min-height: calc(100vh - 4rem); /* Full height minus the navbar height */
+            background-color: rgba(3, 3, 3, 0.75); /* Dark overlay */
+            backdrop-filter: blur(4px);
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+
+        .dialogue-box {
+            background-color: rgba(255, 255, 255, 0.95); /* Light background for text readability */
+            color: #1f2937; /* Dark text */
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar" >
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="logo">
+                    <a href="#home" class="text-2xl font-bold text-emerald-600 tracking-wider">
+                        <img src="img\Twinkle Logo.png" alt="Twinkle" width="80" height="80">
+                    </a>
+                </div>
+                <!-- Desktop Menu -->
+                <div class="navitems">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="twinkle.html#problem" class="px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-amber-300/80 transition duration-300">Problem</a>
+                        <a href="twinkle.html#present" class="px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-amber-300/80 transition duration-300">Explore Present</a>
+                        <a href="twinkle.html#solution" class="px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-amber-300/80 transition duration-300">Solution</a>
+                        <a href="twinkle.html#future" class="px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-amber-300/80 transition duration-300">Travel to Future</a>                        
+                   </div>
+                </div>
+       </nav>
+
+    
+    <div class="content-overlay flex items-center justify-center">
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <section id="palisades-story" class="mb-16">
+                <h2 class="section-title text-5xl font-extrabold mb-8 text-center text-red-500 drop-shadow-lg">
+                    Pacific Palisades: The Story
+                </h2>
+                
+                <div class="dialogue-box p-6 rounded-xl shadow-2xl max-w-4xl mx-auto">
+                    <h4 class="text-2xl font-bold mb-3 text-red-600">
+                        The Situation in Pacific Palisades
+                    </h4>
+                    
+                    <div class="my-4">
+                        <audio controls class="w-full">
+                            <source src="img/Palisades.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                        <p class="text-xs text-gray-500 mt-1">Listen to the recorded situation report.</p>
+                    </div>
+
+                    <p class="text-lg text-gray-800 leading-relaxed">
+In January 2025, Los Angeles woke to chaos, not calm. Winds howled, flames roared, and by nightfall, Pacific Palisades was unrecognizable. Elegant homes, sacred spaces, and even the historic Robert Bridges House vanished into smoke and ash.
+
+The city’s lifelines—power, water, communication—failed, leaving thousands stranded in fear. From space, NASA’s satellites revealed the scars: green hills turned into blackened wastelands.
+
+It was not just destruction; it was a warning. A reminder that even a city of beauty and wealth is fragile before nature’s wrath. Yet, in the silence after the fire, Los Angeles whispered resilience—vowing to rise again, stronger than before.                    </p>
+
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
+    <script type="module">
+        import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+
+        createChat({
+            webhookUrl: 'https://twinkleteam.app.n8n.cloud/webhook/a301abf0-446a-4fa9-b4ad-be401082c0da/chat'
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pacific Palisades: The Problem</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/phosphor-icons@1.4.2/src/css/icons.css" rel="stylesheet">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #f8f8f8;
+            background-image: url('img/pasadena.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh; /* Ensure the body covers the full viewport height */
+        }
+        
+        .navbar {
+            background-color: #030303;
+        }
+
+        /* NEW: Styling for the content overlay */
+        .content-overlay {
+            /* Full height and width, centers content, with a dark, blurred background */
+            min-height: calc(100vh - 4rem); /* Full height minus the navbar height */
+            background-color: rgba(3, 3, 3, 0.75); /* Dark overlay */
+            backdrop-filter: blur(4px);
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+
+        .dialogue-box {
+            background-color: rgba(255, 255, 255, 0.95); /* Light background for text readability */
+            color: #1f2937; /* Dark text */
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar" >
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="logo">
+                    <a href="#home" class="text-2xl font-bold text-emerald-600 tracking-wider">
+                        <img src="img\Twinkle Logo.png" alt="Twinkle" width="80" height="80">
+                    </a>
+                </div>
+                <!-- Desktop Menu -->
+                <div class="navitems">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="twinkle.html#problem" class="px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-amber-300/80 transition duration-300">Problem</a>
+                        <a href="twinkle.html#present" class="px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-amber-300/80 transition duration-300">Explore Present</a>
+                        <a href="twinkle.html#solution" class="px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-amber-300/80 transition duration-300">Solution</a>
+                        <a href="twinkle.html#future" class="px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-amber-300/80 transition duration-300">Travel to Future</a>                        
+                   </div>
+                </div>
+       </nav>
+
+    
+    <div class="content-overlay flex items-center justify-center">
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <section id="palisades-story" class="mb-16">
+                <h2 class="section-title text-5xl font-extrabold mb-8 text-center text-red-500 drop-shadow-lg">
+Altadena’s Short Story: The Lesson from the Flames
+                </h2>
+                
+                <div class="dialogue-box p-6 rounded-xl shadow-2xl max-w-4xl mx-auto">
+                    <h4 class="text-2xl font-bold mb-3 text-red-600">
+Maral Nazarian and her husband                     </h4>
+                    
+                    <div class="my-4">
+                        <audio controls class="w-full">
+                            <source src="img\Pasadena.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                        <p class="text-xs text-gray-500 mt-1">Listen to the recorded situation report.</p>
+                    </div>
+
+                    <p class="text-lg text-gray-800 leading-relaxed">I am Altadena. I'm known for being a peaceful, beautiful community by the mountains. But in January 2025, disaster hit.
+
+My big neighbor, Los Angeles, was still talking about the Palisades fire when the flames reached me. On the night of January 8th, I saw the worst: families like Maral Nazarian and her husband watched their dream homes turn into nothing but charred ashes. For them, a whole life collapsed in a few hours.
+
+It was clear that this wasn't just a fluke. From the coast (Palisades) to the mountains (me, Altadena), the wildfires were no longer just seasonal. They are an everyday threat. The long drought, the strong winds, and climate change have made us all extremely fragile.
+
+This is the big lesson I learned from the destruction:
+
+We can’t just rely on luck anymore. Science and data are our new shield. Tools like NASA’s satellite images can tell us exactly where the danger is.
+
+This data is the key. It's the difference between a city that falls apart in hours, and one that stands strong and ready when disaster strikes.
+
+I am Altadena. I'm hurting, but I'm learning. I won't just hope for the best; I will use Science to protect the people who call me home.
+        <img src="img\maral.jpg" 
+     class="mx-auto w-80 h-80 object-cover rounded-xl" 
+></img>
+             
+</div>
+            </section>
+        </main>
+    </div>
+
+    <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
+    <script type="module">
+        import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+
+        createChat({
+            webhookUrl: 'https://twinkleteam.app.n8n.cloud/webhook/a301abf0-446a-4fa9-b4ad-be401082c0da/chat'
+        });
+    </script>
+</body>
+</html>

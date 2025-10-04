@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L.A Urban Plan</title>
+    <!-- Load Tailwind CSS CDN for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+<!-- Phosphor Icons (add this line) -->
+    <link href="https://cdn.jsdelivr.net/npm/phosphor-icons@1.4.2/src/css/icons.css" rel="stylesheet">
+
+    <!-- Use Inter font family -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #030303;
+            color: #f8f8f8; /* text */
+        }
+        .text-emerald-950-darker {
+            color: #f8f8f8; /* off white */
+        }
+        .navbar {
+            color: #030303;
+        }
+        .ambitious-font {
+            font-family: 'Inconsolata', monospace;
+        }
+        
+        #home {
+            background-image: url('img/Earth from space.jpeg');
+            background-size: 100%; 
+            opacity: 80%;
+            background-repeat: no-repeat; 
+            background-attachment: fixed; 
+        }
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0); 
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(-120vh); 
+                opacity: 0;
+            }
+        }
+
+        /* --- Custom Map Styles --- */
+        .map-container {
+            position: relative;
+            /* Fills the width and maintains aspect ratio */
+            padding-top: 30%; /* Adjust this percentage to fit your map image aspect ratio (e.g., 60%) */
+            background-image: url('img/problem-map.jpg');
+            opacity: 80%;
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 0 40px rgba(255, 165, 0, 0.2);
+        }
+        
+.map-pin {
+    position: absolute;
+    cursor: pointer;
+    transition: transform 0.2s, filter 0.2s;
+    filter: drop-shadow(0 0 5px rgba(255, 69, 0, 0.8));
+    z-index: 50;
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.map-pin:hover {
+    transform: scale(1.5); /* Increased hover scale for more impact */
+}
+
+/* New: Style the SVG wrapper for size control */
+.map-pin-icon-wrapper {
+    width: 50px; /* Increased width */
+    height: 67px; /* Increased height */
+    filter: drop-shadow(0 0 8px rgba(190, 26, 26, 0.9)); /* Stronger shadow */
+}
+
+        .map-pin:hover {
+            transform: scale(1.3);
+        }
+
+        /* Tooltip/Popup Styling */
+        .map-popup {
+  display: flex; 
+        flex-direction: column;
+        align-items: center; /* Horizontally center content */
+        text-align: center; /* Ensure text lines are centered */
+        position: absolute;
+        width: 280px;
+        padding:0.25rem 0.5rem; 
+        background-color: rgba(232, 101, 0, 0.475);
+        backdrop-filter: blur(8px);
+        border-radius: 0.75rem;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 15px #ffaa00;
+        color: white;
+        z-index: 100;
+        pointer-events: none;
+        opacity: 0;
+        transform: scale(0.95) translateY(10px);
+        transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+        cursor: pointer;
+        }
+        .map-popup.active {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            pointer-events: auto;
+        }
+        .popup-close {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #ffaa00;
+        }
+        #popup-description {
+    font-size: 1rem; /* Increased size (e.g., from text-xs/0.75rem to 1rem) */
+    text-decoration: underline; /* Add the underline */
+    font-weight: 600; /* Make it semi-bold for visibility */
+    cursor: pointer; /* Change cursor to pointer to indicate clickability */
+}
+
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar" >
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="logo">
+                    <a href="#home" class="text-2xl font-bold text-emerald-600 tracking-wider">
+                        <img src="img\Twinkle Logo.png" alt="Twinkle" width="80" height="80">
+                    </a>
+                </div>
+                <!-- Desktop Menu -->
+                <div class="navitems">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#problem" class="px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-amber-300/80 transition duration-300">Problem</a>
+                        <a href="#present" class="px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-amber-300/80 transition duration-300">Explore Present</a>
+                        <a href="#solution" class="px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-amber-300/80 transition duration-300">Solution</a>
+                        <a href="#future" class="px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-amber-300/80 transition duration-300">Travel to Future</a>                        
+                   </div>
+                </div>
+       </nav>
+
+<!-- Home Section (Image as Background, Mission/Goal Text) -->
+    <section id="home" class="home-bg flex items-center justify-center text-white p-6">
+        <!-- Overlay for content visibility. Opacity increased to 50% for lighter background effect. -->
+        <div class="text-center p-8 rounded-xl" style=>
+            <h4 class="text-5xl md:text-7xl font-extrabold mb-4 drop-shadow-lg text-[#f8f8f8]">
+From survival... To life.            </h4>
+            <p class="text-lg md:text-xl mb-8 font-light max-w-3xl mx-auto drop-shadow-lg ambitious-font text-[#f8f8f8]">
+Discover how we are rebuilding our cities using NASA's science. Beginning with Los Angeles, CA.            </p>
+            <p class="text-lg md:text-2xl font-light max-w-4xl mx-auto drop-shadow-lg ambitious-font mb-8">
+We are ambitious urban planners rebuilding L.A. to deliver a high quality of life for humans and a positive ecofriendly impact. Our strategy utilizes data and NASA's science to analyze urban harm and engineer sustainable metropolitan solutions.
+            </p>
+        </div>
+    </section>
+
+    <section id="problem" class="py-16">
+            <div class="text-center mb-12">
+                <h3 class="text-sm font-semibold uppercase text-amber-400 tracking-widest mb-2">Can't be overlooked problems</h3>
+                <h3 class="text-4xl font-bold text-emerald-950-darker">Why Los Angeles?</h3>
+            </div>
+
+                <!-- The Problem Interactive Card (Centered and Reduced Width) -->
+            <div class="relative rounded-2xl shadow-2xl overflow-hidden group cursor-pointer transition duration-500 hover:shadow-amber-500/40 w-[950px] mx-auto max-w-full">
+                    
+                    <!-- Background Image for the Card -->
+                   <img src="https://publicinterestnetwork.org/wp-content/uploads/2025/01/jessica-christian-iX1UVhJi1Jw-unsplash-1000x563.jpg" 
+                         alt="Aerial view of dense L.A. traffic and smog" 
+                         class="w-full h-[500px] object-cover transition duration-500 opacity-60 group-hover:opacity-90">
+
+                    <!-- Overlay Content (Hidden by default, shown on hover) -->
+                    <div class="absolute inset-0 flex flex-col items-center justify-center p-8 text-center bg-black bg-opacity-80 opacity-0 group-hover:opacity-100 transition duration-500">
+                        
+                        <!-- Main Text - Suitable for the Problem/Opportunity theme -->
+                        <h3 class="text-4xl font-bold mb-6 text-[#f8f8f8]">
+L.A.: The Great Challenge, The Golden Opportunity                        </h3>
+                        <p class="text-xl mb-8 text-gray-300 ambitious-font">
+Los Angeles was chosen as our starting point because it balances <b>critical environmental and human risks</b> (like homelessness and air pollution) with <b>immense potential</b>. Its advanced education, technology, and art scenes offer the perfect leverage to transform it into a global model for sustainability. Explore further to view the real-time data, imagery, and analysis detailing where these problems occur.                        </p>
+                        
+                        <!-- Explore Further Button (Underlined, slightly larger font) -->
+                        <a href="problem.html" class="text-2xl font-semibold text-amber-400 underline hover:text-amber-500 transition duration-300 mt-4">
+                            Explore further &rarr;
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+<!-- INTERACTIVE MAP SECTION -->
+<section id="present" class="py-16 md:py-24">
+  <h2 class="text-4xl font-extrabold text-center mb-16 text-red-500 drop-shadow-[0_0_5px_rgba(255,0,0,0.5)]">
+    Explore the Present: The searing truth
+  </h2>
+
+  <div class="map-container mx-auto" id="la-map" style="background-image: url('img/problem-map.jpg');">
+    
+    <!-- 1. Pacific Palisades -->
+    <button class="map-pin" style="left: 26%; top: 36%;" 
+            data-location="Pacific Palisades"
+            data-image="img\pacific.jpg"
+            data-description="Explore its story">
+      <div class="w-6 h-10">
+        <svg viewBox="0 0 24 24" fill="#dc2626" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C8 2 5 5 5 9c0 6 7 13 7 13s7-7 7-13c0-4-3-7-7-7zm0 9a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/>
+        </svg>
+      </div>
+    </button>
+
+    <!-- 2. Hollywood Hills -->
+    <button class="map-pin" style="left: 57%; top: 20%;"
+            data-location="Hollywood Hills"
+            data-image="img\Hollywood.jpg"
+            data-description="Explore its story">
+      <div class="w-6 h-10">
+        <svg viewBox="0 0 24 24" fill="#dc2626" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C8 2 5 5 5 9c0 6 7 13 7 13s7-7 7-13c0-4-3-7-7-7zm0 9a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/>
+        </svg>
+      </div>
+    </button>
+
+    <!-- 3. Pasadena (Air Pollution) -->
+    <button class="map-pin" style="left: 89%; top: 2%;"
+            data-location="Pasadena"
+            data-image="img\pasadena.jpg"
+            data-description="Explore its story">
+      <div class="w-6 h-10">
+        <svg viewBox="0 0 24 24" fill="#dc2626" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C8 2 5 5 5 9c0 6 7 13 7 13s7-7 7-13c0-4-3-7-7-7zm0 9a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/>
+        </svg>
+      </div>
+    </button>
+
+    <!-- Popup Box -->
+        <div id="map-popup" class="map-popup hidden" data-target-url="">
+      <span class="popup-close" onclick="closePopup()">&times;</span>
+            <h5 id="popup-location" class="text-xl font-bold text-amber-300"></h5> 
+            <p id="popup-problem" class="text-sm font-semibold text-red-400"></p> 
+      <img id="popup-image" src="" alt="Problem Image" class="w-full h-auto rounded-md mb-2">
+      <p id="popup-description" class="text-xs text-gray-200"></p>
+    </div>
+  </div>
+</section>
+
+
+<section id="solution" class="relative bg-cover bg-center bg-no-repeat" style="background-image: url('img/solution-bg.jpg');">
+  <!-- Overlay for readability -->
+  <div class="absolute inset-0 bg-black/70"></div>
+
+  <div class="relative max-w-7xl mx-auto px-6 py-16 text-center">
+    <!-- Heading -->
+    <h2 class="text-4xl md:text-5xl font-bold text-amber-400 mb-6">Los Angeles is more than a city</h2>
+    <p class="text-gray-300 max-w-3xl mx-auto text-lg leading-relaxed">
+      It’s a spirit of resilience and reinvention. Today, we stand at a turning point: 
+      to not just restore what was lost, but to reimagine a greener, stronger, and more connected future. 
+      Our vision is to bring LA back to life—revived, renewed, and ready to shine again as a global symbol of possibility.
+    </p>
+
+    <!-- Cards Container -->
+    <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 justify-items-center">
+      
+      <!-- Card 1 -->
+      <div class="w-full sm:w-80 bg-[#0e0e0e] rounded-xl shadow-2xl overflow-hidden border border-gray-800 transition duration-300 hover:shadow-green-500/50">
+        <img src="img/smart-house.jpg" class="h-48 w-full object-cover rounded-t-xl">
+        <div class="p-6 text-left">
+          <h4 class="text-2xl font-semibold text-amber-400 mb-2">🏠 Smart Eco-Housing</h4>
+          <p class="text-gray-400">- Solar-powered housing units designed for energy independence.</p>
+          <p class="text-gray-400">- Modular, clean, and affordable shelters that can expand with demand.</p>
+          <p class="text-gray-400">- Designed as zero-waste communities with recycling systems.</p>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="w-full sm:w-80 bg-[#0e0e0e] rounded-xl shadow-2xl overflow-hidden border border-gray-800 transition duration-300 hover:shadow-green-500/50">
+        <img src="img/transport.jpg" class="h-48 w-full object-cover rounded-t-xl">
+        <div class="p-6 text-left">
+          <h4 class="text-2xl font-semibold text-amber-400 mb-2">🚍 Connected Clean Transport</h4>
+          <p class="text-gray-400">- Electric shuttles and shared bikes to link Skid Row with Downtown LA.</p>
+          <p class="text-gray-400">- Smart charging stations powered by solar grids.</p>
+          <p class="text-gray-400">- Easy, sustainable mobility → no isolation.</p>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="w-full sm:w-80 bg-[#0e0e0e] rounded-xl shadow-2xl overflow-hidden border border-gray-800 transition duration-300 hover:shadow-green-500/50">
+        <img src="img/community.jpg" class="h-48 w-full object-cover rounded-t-xl">
+        <div class="p-6 text-left">
+          <h4 class="text-2xl font-semibold text-amber-400 mb-2">👩‍🌾 Empowered Communities</h4>
+          <p class="text-gray-400">- Training programs in urban agriculture and renewable energy jobs.</p>
+          <p class="text-gray-400">- Residents become producers, not just consumers.</p>
+          <p class="text-gray-400">- Safe public spaces that encourage inclusion and dignity.</p>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="w-full sm:w-80 bg-[#0e0e0e] rounded-xl shadow-2xl overflow-hidden border border-gray-800 transition duration-300 hover:shadow-green-500/50">
+        <img src="img/urban-revo.jpg" class="h-48 w-full object-cover rounded-t-xl">
+        <div class="p-6 text-left">
+          <h4 class="text-2xl font-semibold text-amber-400 mb-2">🌍 Urban Agriculture Revolution</h4>
+          <p class="text-gray-400">- Turning abandoned lands into productive green hubs.</p>
+          <p class="text-gray-400">- Hydroponics & raised beds → farming without soil contamination.</p>
+          <p class="text-gray-400">- Drip irrigation + rain harvesting → maximum water efficiency.</p>
+          <p class="text-gray-400">- Long-term leases ensure stability & investment security.</p>
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="w-full sm:w-80 bg-[#0e0e0e] rounded-xl shadow-2xl overflow-hidden border border-gray-800 transition duration-300 hover:shadow-green-500/50">
+        <img src="img/green-skid.jpg" class="h-48 w-full object-cover rounded-t-xl">
+        <div class="p-6 text-left">
+          <h4 class="text-2xl font-semibold text-amber-400 mb-2">🌱 Greener Skid Row</h4>
+          <p class="text-gray-400">- Creation of urban forests & community gardens.</p>
+          <p class="text-gray-400">- Cooling shaded zones that fight heat + improve air quality.</p>
+          <p class="text-gray-400">- Edible gardens providing fresh food to residents.</p>
+        </div>
+      </div>
+    </div>
+<!-- Local Leaders Section -->
+<div class="mt-20 max-w-6xl mx-auto bg-black/60 rounded-xl p-8 space-y-10">
+  <!-- Top Intro -->
+  <div class="text-center">
+    <h3 class="text-3xl font-bold text-amber-400 mb-4">🤝 The Role of Local Leaders in Our Solution</h3>
+    <h4 class="text-xl font-semibold text-gray-200 mb-4">🏙 Local Leadership as Catalysts</h4>
+    <p class="text-gray-300 max-w-3xl mx-auto">
+      Our vision isn’t top-down. We believe city officials, community leaders, and NGOs must be at the heart of Skid Row’s transformation.
+    </p>
+  </div>
+
+  <!-- Middle: Image + Key Roles Side by Side -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+    <!-- Leaders Image -->
+    <img src="img/local.jpg" alt="Local Leaders"
+         class="rounded-xl shadow-lg object-cover w-full h-80 transition duration-300 hover:shadow-green-500/50">
+
+    <!-- Key Roles -->
+    <div class="text-left">
+      <h4 class="text-xl font-semibold text-gray-200 mb-4">🔑 How Leaders Play a Key Role</h4>
+      <ul class="text-gray-200 space-y-3">
+        <li><span class="font-semibold text-amber-400">Policy Support:</span> Expand programs like UAIZ tax incentives to drive green investment.</li>
+        <li><span class="font-semibold text-amber-400">Community Trust:</span> Act as bridges between residents and developers for transparency.</li>
+        <li><span class="font-semibold text-amber-400">Resource Mobilization:</span> Channel city funds, grants, and partnerships into housing & infrastructure.</li>
+        <li><span class="font-semibold text-amber-400">Stability:</span> Secure long-term land leases for urban farms and housing projects.</li>
+        <li><span class="font-semibold text-amber-400">Integration:</span> Partner with universities & NGOs to launch training in farming & renewable energy.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Bottom Why This Matters -->
+  <div class="text-center mt-10">
+    <h4 class="text-xl font-semibold text-gray-200 mb-3">🌍 Why This Matters</h4>
+    <p class="text-gray-300 max-w-3xl mx-auto mb-4">
+      When local leadership owns the change, solutions become permanent and community-driven.
+    </p>
+    <ul class="text-gray-200 space-y-2">
+      <li>✔ A city-wide movement led by trusted voices</li>
+      <li>✔ A replicable model for other cities</li>
+      <li>✔ A shared success story uniting government, science & citizens</li>
+
+    <!-- Vision Section -->
+    <div class="mt-20 grid grid-cols-1 md:grid-cols-2 gap-10 items-center max-w-6xl mx-auto bg-black/60 rounded-xl p-8">
+      <!-- Vision Image -->
+      <img src="img/vision.jpg" alt="Vision" class="rounded-xl shadow-lg object-cover w-full h-80">
+      
+      <!-- Vision Text -->
+      <div class="text-left">
+        <h3 class="text-3xl font-bold text-amber-400 mb-4">✨ The Vision</h3>
+        <p class="text-gray-300 mb-4">
+          We’re not just solving homelessness or food deserts.<br>
+          We’re building:
+        </p>
+        <ul class="text-gray-200 space-y-2">
+          <li>✔ A healthier LA with cleaner air & better nutrition.</li>
+          <li>✔ A stronger economy with green jobs & sustainable business models.</li>
+          <li>✔ A socially integrated city where everyone has a role.</li>
+          <li>✔ A global model for climate-resilient, inclusive urban living.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- INTERACTIVE FUTURE SECTION (New Content) -->
+<section id="future" class="py-16 md:py-24 bg-[#0e0e0e]">
+    <div class="max-w-7xl mx-auto px-6">
+        <h2 class="text-4xl md:text-5xl font-extrabold text-center mb-4 text-emerald-400">
+            A Brighter Future: Sustainable Los Angeles
+        </h2>
+        <p class="text-xl text-center text-gray-400 mb-12 max-w-4xl mx-auto">
+            This project is a vision to transform Los Angeles into a global model for urban sustainability and social equity. Explore the two core pillars of transformation below.
+        </p>
+
+        <!-- Tabs/Pillars Navigation -->
+        <div class="flex justify-center space-x-8 border-b-2 border-gray-700 mb-12">
+            <div id="tab-environment" class="future-tab active px-4 py-3 text-lg font-semibold text-amber-400 border-b-3 border-amber-400 flex items-center">
+                <i class="ph-leaf-fill text-2xl mr-2"></i> Resilient Environment
+            </div>
+            <div id="tab-community" class="future-tab px-4 py-3 text-lg font-semibold text-gray-500 hover:text-amber-300 flex items-center">
+                <i class="ph-users-three-fill text-2xl mr-2"></i> United Community
+            </div>
+        </div>
+
+        <!-- Dynamic Content Area -->
+        <div class="grid md:grid-cols-2 gap-10 items-center">
+            
+            <!-- Future Image Placeholder -->
+            <div>
+                <img id="future-content-image" src="img\future1.jpg" alt="Future Vision" class="future-content-image w-full h-auto rounded-xl shadow-2xl border-4 border-emerald-600/50">
+            </div>
+
+            <!-- Future Text Content -->
+            <div class="text-left">
+                <h3 id="future-content-title" class="text-3xl font-bold mb-4 text-amber-400"></h3>
+                <p id="future-content-subtitle" class="text-gray-300 text-lg mb-6"></p>
+                
+                <ul id="future-content-points" class="space-y-4">
+                    <!-- Points will be injected here by JavaScript -->
+                </ul>
+            </div>
+        </div>
+
+
+    </div>
+</section>
+
+
+
+        <!-- Empty section targets for navigation -->
+        <div id="future" class="h-12"></div>
+        <div id="chatbot" class="h-12"></div>
+    </main>
+
+
+
+
+<!-- JavaScript for Fire effect and Map interaction -->
+<script>
+    // --- INTERACTIVE MAP LOGIC ---
+    const mapPins = document.querySelectorAll('.map-pin');
+    const popup = document.getElementById('map-popup');
+    const popupLocation = document.getElementById('popup-location');
+    const popupProblem = document.getElementById('popup-problem');
+    const popupImage = document.getElementById('popup-image');
+    const popupDescription = document.getElementById('popup-description');
+
+    mapPins.forEach(pin => {
+        pin.addEventListener('click', (event) => {
+            const mapContainer = document.getElementById('la-map');
+            const mapRect = mapContainer.getBoundingClientRect();
+            
+            // Fetch data from button attributes
+            const location = pin.getAttribute('data-location');
+            const problem = pin.getAttribute('data-problem');
+            const image = pin.getAttribute('data-image');
+            const description = pin.getAttribute('data-description');
+
+            // ----------------------------------------------------------------
+            // UPDATED LOGIC: Determine the simplified target URL
+            // This maps the full location name to the desired simple filename.
+            let targetUrl;
+            if (location.includes('Palisades')) {
+                targetUrl = 'Palisades.html';
+            } else if (location.includes('Hollywood')) {
+                targetUrl = 'Hollywood.html';
+            } else if (location.includes('Pasadena')) {
+                targetUrl = 'Pasadena.html';
+            } else {
+                // Fallback for any other locations
+                targetUrl = `${location.toLowerCase().replace(/\s/g, '-')}.html`;
+            }
+            // ----------------------------------------------------------------
+
+            // Store the destination URL in the popup's data attribute
+            popup.setAttribute('data-target-url', targetUrl);
+
+            // Populate popup content
+            popupLocation.textContent = location;
+            popupProblem.textContent = problem || ""; 
+            popupImage.src = image;
+            popupImage.alt = `${location} problem`;
+            popupDescription.textContent = description;
+            
+            // Calculate popup position
+            const pinLeftPercent = parseFloat(pin.style.left);
+            const pinTopPercent = parseFloat(pin.style.top);
+            
+            let topOffset, leftOffset;
+
+            // Adjust positioning logic
+            topOffset = pinTopPercent - 35;
+            if (pinLeftPercent > 70) {
+                leftOffset = pinLeftPercent - (280 * 100 / mapRect.width) - 2;
+            } else {
+                leftOffset = pinLeftPercent;
+            }
+            if (pinTopPercent < 20) {
+                topOffset = pinTopPercent + 5;
+            }
+            
+            // Apply calculated position
+            popup.style.top = `${topOffset}%`;
+            popup.style.left = `${leftOffset}%`;
+
+            // Show the popup
+            popup.classList.add('active');
+            popup.classList.remove('hidden');
+
+            event.stopPropagation();
+        });
+    });
+
+    // NEW LOGIC: Add click listener to the entire popup div for navigation
+    popup.addEventListener('click', (event) => {
+        // Prevent navigation if the close button is clicked
+        if (event.target.classList.contains('popup-close') || event.target.closest('.popup-close')) {
+            closePopup();
+            return;
+        }
+
+        // Only redirect if the popup is currently active
+        if (popup.classList.contains('active')) {
+            const targetUrl = popup.getAttribute('data-target-url');
+            if (targetUrl) {
+                // Navigate to the target page (e.g., Palisades.html)
+                window.location.href = targetUrl;
+            }
+        }
+    });
+
+    // Function to close the popup
+    window.closePopup = function() {
+        popup.classList.remove('active');
+        setTimeout(() => {
+            popup.classList.add('hidden');
+        }, 300);
+    }
+
+    // Close popup when clicking anywhere else on the document
+    document.addEventListener('click', (event) => {
+        if (popup.classList.contains('active')) {
+            let target = event.target;
+            let isInsidePopup = popup.contains(target);
+            let isPin = target.closest('.map-pin');
+            
+            if (!isInsidePopup && !isPin) {
+                closePopup();
+            }
+        }
+    });
+    // --- INTERACTIVE FUTURE TABS LOGIC (NEW) ---
+    const futureData = [
+        {
+            id: 'environment',
+            title: 'A Safer and More Resilient Environment',
+            subtitle: 'By implementing green infrastructure and smart resource management, we turn climate risk into climate resilience.',
+            // IMAGE COLOR CHANGED TO VIOLET
+            image: 'img/future2.jpg', 
+            points: [
+                'Reduced Wildfire Severity: By mitigating the "Urban Heat Island effect" and lowering temperatures, green solutions create a cooler, more humid local climate, reducing the ideal conditions for destructive wildfires in surrounding areas.',
+                'Significantly Cleaner Air: The expansion of tree planting and urban farming will purify the air from vehicle and factory pollutants. Coupled with the shift to clean transportation, this guarantees a major reduction in respiratory illnesses.',
+                'Better Resource Management: Implementing drip irrigation systems and rainwater harvesting will make Los Angeles more resilient to drought and water scarcity.',
+            ]
+        },
+        {
+            id: 'community',
+            title: 'A Healthier and More United Community',
+            subtitle: 'Shifting the focus from survival to quality of life through social equity and dignified economic opportunities.',
+            // IMAGE COLOR CHANGED TO BLUE
+            image: 'img/healthy.jpg', 
+            points: [
+                'Improved Public Health: Direct access to locally grown "healthy food," improved air quality, and the availability of safe spaces for walking and physical activity will lead to a decrease in obesity rates and chronic diseases linked to diet and pollution.',
+                'Reduced Homelessness and Reintegration: Eco-friendly housing units and training/employment programs in "green jobs" will offer a dignified and sustainable pathway for integrating residents from underserved areas back into the city\'s economic and social fabric.',
+                'Increased Local Engagement and Cooperation: Local leaders and neighborhood officials will shift from being mere crisis responders to engineers of development, dedicating more resources and efforts to enhancing neighborhood sustainability.',
+            ]
+        }
+    ];
+
+    const tabEnvironment = document.getElementById('tab-environment');
+    const tabCommunity = document.getElementById('tab-community');
+    const futureImage = document.getElementById('future-content-image');
+    const futureTitle = document.getElementById('future-content-title');
+    const futureSubtitle = document.getElementById('future-content-subtitle');
+    const futurePoints = document.getElementById('future-content-points');
+
+    function updateFutureContent(data) {
+        // Apply fade-out effect for a smooth transition
+        futureImage.style.opacity = '0';
+        futurePoints.style.opacity = '0';
+        futureTitle.style.opacity = '0';
+        futureSubtitle.style.opacity = '0';
+
+        setTimeout(() => {
+            futureImage.src = data.image;
+            futureTitle.textContent = data.title;
+            futureSubtitle.textContent = data.subtitle;
+
+            // Clear existing points
+            futurePoints.innerHTML = '';
+            
+            // Add new points
+            data.points.forEach(point => {
+                const li = document.createElement('li');
+                li.className = 'flex items-start text-gray-200';
+                // CHECK ICON COLOR CHANGED TO VIOLET
+                li.innerHTML = `<i class="ph-check-circle-fill text-xl text-violet-400 mt-1 mr-3"></i> <span>${point}</span>`; 
+                futurePoints.appendChild(li);
+            });
+
+            // Apply fade-in effect
+            futureImage.style.opacity = '1';
+            futurePoints.style.opacity = '1';
+            futureTitle.style.opacity = '1';
+            futureSubtitle.style.opacity = '1';
+
+        }, 300); // Duration of the fade-out transition
+    }
+
+    function switchTab(targetId) {
+        // Reset all tabs
+        tabEnvironment.classList.remove('active', 'text-blue-400');
+        tabEnvironment.classList.add('text-gray-500');
+        tabCommunity.classList.remove('active', 'text-blue-400');
+        tabCommunity.classList.add('text-gray-500');
+
+        // Activate the target tab (color logic changed to reflect blue theme)
+        const targetTab = document.getElementById(`tab-${targetId}`);
+        targetTab.classList.add('active', 'text-blue-400');
+        targetTab.classList.remove('text-gray-500');
+        
+        // Find and update content
+        const content = futureData.find(item => item.id === targetId);
+        if (content) {
+            updateFutureContent(content);
+        }
+    }
+
+    // Event listeners for tabs
+    tabEnvironment.addEventListener('click', () => switchTab('environment'));
+    tabCommunity.addEventListener('click', () => switchTab('community'));
+
+    // Initialize with the first tab
+    document.addEventListener('DOMContentLoaded', () => {
+        switchTab('environment');
+    });
+</script>
+<link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
+<script type="module">
+	import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+
+	createChat({
+		webhookUrl: 'https://twinkleteam.app.n8n.cloud/webhook/a301abf0-446a-4fa9-b4ad-be401082c0da/chat'
+	});
+</script>
+</body>
+</html>

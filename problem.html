@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L.A Problems Report</title>
+    <!-- Load Tailwind CSS CDN for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Use Inter font family -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #030303;
+            color: #f8f8f8; /* text */
+        }
+        .navbar {
+            color: #030303;
+        }
+        .ambitious-font {
+            font-family: 'Inconsolata', monospace;
+        }
+        .fire-particle {
+            position: fixed; /* Fixed position relative to viewport */
+            font-size: 2rem; 
+            pointer-events: none; 
+            opacity: 0;
+            animation-name: floatUp;
+            animation-timing-function: linear;
+            animation-fill-mode: forwards;
+            bottom: -50px; 
+            z-index: 100; 
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0); 
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(-120vh); 
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="fire-container" class="fixed inset-0 pointer-events-none z-0"></div>
+    <nav class="navbar" >
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="logo">
+                    <a href="twinkle.html" class="text-2xl font-bold text-emerald-600 tracking-wider">
+                        <img src="img\Twinkle Logo.png" alt="Twinkle" width="80" height="80">
+                    </a>
+                </div>
+                <!-- Desktop Menu -->
+                <div class="navitems">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="twinkle.html#home" class="px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-amber-300/80 transition duration-300">Home</a>
+                        <a href="twinkle.html#present" class="px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-amber-300/80 transition duration-300">Explore Present</a>
+                        <a href="twinkle.html#future" class="px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-amber-300/80 transition duration-300">Solution</a>
+                        <a href="twinkle.html#future" class="px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-amber-300/80 transition duration-300">Travel to Future</a>                        
+                   </div>
+                </div>
+       </nav>
+
+<section class="py-16 my-12 bg-[#080925]/80 shadow-2xl">
+  <div class="text-center px-6">
+    <h3 class="text-3xl md:text-5xl font-extrabold text-white mb-4">
+      The Ultimate Paradox: Risk Meets Limitless Potential
+    </h3>
+    <p class="text-xl text-emerald-100 mb-8 mx-auto max-w-4xl">
+      Los Angeles presents a unique challenge: a city of critical environmental threats and escalating human crises, yet simultaneously home to the world's most pioneering technology, education, and artistic innovation (Hollywood). The severity of problems like resource scarcity, polluted air, and widespread displacement pose severe risks to its residents and ecosystem. We chose L.A. not just because of its scale of problems, but because its established infrastructure and vibrant intellectual capital offer the perfect leverage to transform these potent issues into a global model for sustainability. The core of our mission is turning this urban stress into a breakthrough opportunity.
+    </p>
+
+    <!-- Container for images -->
+    <div class="flex flex-col md:flex-row justify-center items-center gap-8">
+      <!-- Image 1 -->
+      <div class="relative group w-full sm:w-1/2 max-w-sm">
+        <img src="img/Polluted LA.jpg"
+             alt="Dense smog and pollution over an urban area"
+             class="w-full h-64 object-cover rounded-xl shadow-2xl border-4 border-red-700/50 transition duration-500 group-hover:shadow-red-700">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent flex items-end justify-center p-3 rounded-xl">
+          <span class="text-white text-lg font-bold">Critical Risk</span>
+        </div>
+      </div>
+
+      <!-- Image 2 -->
+      <div class="relative group w-full sm:w-1/2 max-w-sm">
+        <img src="https://static.wixstatic.com/media/0df2b8_379abb7042c2416e8c519006e9cc1509~mv2.jpg/v1/fill/w_640,h_428,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/0df2b8_379abb7042c2416e8c519006e9cc1509~mv2.jpg"
+             alt="Bright, modern Los Angeles skyline at sunset"
+             class="w-full h-64 object-cover rounded-xl shadow-2xl border-4 border-amber-400/50 transition duration-500 group-hover:shadow-amber-400">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent flex items-end justify-center p-3 rounded-xl">
+          <span class="text-white text-lg font-bold">Limitless Potential</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+        <!-- EXPLORE PRESENT SECTION: 5 Problem Cards (Centered, 3 then 2 layout) -->
+        <section id="present" class="py-16 md:py-24">
+            <h2 class="text-4xl font-extrabold text-center mb-16 text-amber-500">L.A.'s Five Core Challenges</h2>
+
+            <!-- Container for Card Rows (Space between rows) -->
+            <div class="space-y-12">
+                
+                <!-- Row 1: 3 Cards (Centered) -->
+                <div class="flex justify-center flex-wrap gap-8 p-4">
+
+                    <!-- 1. Polluted Air -->
+                    <div class="w-full sm:w-72 lg:w-80 bg-[#0e0e0e] rounded-xl shadow-2xl overflow-hidden border border-gray-800">
+                        <img src="img\Air Pollution.jpg" alt="Heavy smog over a busy freeway in Los Angeles" class="h-48 w-full object-cover">
+                        <div class="p-6">
+                            <h4 class="text-2xl font-semibold text-amber-400 mb-2">1. Polluted Air (Smog)</h4>
+                            <p class="text-gray-400">The toxic blanket of smog causes severe respiratory illnesses and reduces the average life expectancy for residents in high-risk zones.</p>
+                        </div>
+                    </div>
+
+                    <!-- 2. Urban Heat Islands -->
+                    <div class="w-full sm:w-72 lg:w-80 bg-[#0e0e0e] rounded-xl shadow-2xl overflow-hidden border border-gray-800">
+                        <img src="img\Hot Temp.jpg" alt="Dry cracked earth under intense sun in urban area" class="h-48 w-full object-cover">
+                        <div class="p-6">
+                            <h4 class="text-2xl font-semibold text-amber-400 mb-2">2. Hot Temperatures</h4>
+                            <p class="text-gray-400">Excessive concrete traps heat, creating lethal 'Heat Islands' that threaten the elderly, the poor, and increase energy demand for cooling.</p>
+                        </div>
+                    </div>
+
+                    <!-- 3. Arid Plant Cover & Fires -->
+                    <div class="w-full sm:w-72 lg:w-80 bg-[#0e0e0e] rounded-xl shadow-2xl overflow-hidden border border-gray-800">
+                        <img src="img\Dry Vegetation.jpg" alt="Arid, brown hills and dry brush near residential areas" class="h-48 w-full object-cover">
+                        <div class="p-6">
+                            <h4 class="text-2xl font-semibold text-amber-400 mb-2">3. Arid Plant Cover & Fires</h4>
+                            <p class="text-gray-400">Decreased rainfall and dry vegetation turn the natural hillsides into extreme fire hazards that put homes and lives at constant risk.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row 2: 2 Cards (Centered) -->
+                <div class="flex justify-center flex-wrap gap-8 p-4">
+
+                    <!-- 4. Escalating Wildfires -->
+                    <div class="w-full sm:w-72 lg:w-80 bg-[#0e0e0e] rounded-xl shadow-2xl overflow-hidden border border-gray-800">
+                        <img src="img\Fires.jpg" alt="A massive wildfire burning close to an urban neighborhood" class="h-48 w-full object-cover">
+                        <div class="p-6">
+                            <h4 class="text-2xl font-semibold text-amber-400 mb-2">4. Escalating Wildfires</h4>
+                            <p class="text-gray-400">The primary consequence of arid conditions: massive, unpredictable wildfires that destroy habitats, infrastructure, and displace thousands yearly.</p>
+                        </div>
+                    </div>
+
+                    <!-- 5. Displacement & Homelessness -->
+                    <div class="w-full sm:w-72 lg:w-80 bg-[#0e0e0e] rounded-xl shadow-2xl overflow-hidden border border-gray-800">
+                        <img src="img\Homelessness.jpg" alt="Tents set up under a freeway bridge" class="h-48 w-full object-cover">
+                        <div class="p-6">
+                            <h4 class="text-2xl font-semibold text-amber-400 mb-2">5. Displacement & Homelessness</h4>
+                            <p class="text-gray-400">Social inequality is worsened by environmental stress, leading to widespread displacement and a critical, visible homelessness crisis.</p>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+<!-- DATA VISUALS SECTION -->
+<section id="data-visuals" class="py-16 bg-[#0e0e0e]">
+  <h2 class="text-4xl font-extrabold text-center mb-12 text-red-500">
+    Data & Evidence of L.A. Problems
+  </h2>
+
+  <!-- Container centered -->
+  <div class="flex flex-col md:flex-row justify-center items-center gap-8 px-6 max-w-6xl mx-auto">
+
+    <!-- Image 1 -->
+    <div class="w-full md:w-1/3 bg-[#1a1a1a] rounded-xl shadow-xl overflow-hidden flex flex-col">
+      <div class="h-80 flex items-center justify-center bg-black">
+        <img src="img/firemap.jpg" alt="Wildfire Map of Los Angeles" 
+             class="max-h-full max-w-full object-contain transform transition duration-500 hover:scale-105">
+      </div>
+      <p class="text-center text-gray-300 text-sm mt-3">
+        🔥 Spread of Wildfires across L.A. (Jan 2025)
+      </p>
+    </div>
+
+    <!-- Image 2 -->
+    <div class="w-full md:w-1/3 bg-[#1a1a1a] rounded-xl shadow-xl overflow-hidden flex flex-col">
+      <div class="h-80 flex items-center justify-center bg-black">
+        <img src="img/problem numbers.jpg" alt="Impact of LA Wildfires" 
+             class="max-h-full max-w-full object-contain transform transition duration-500 hover:scale-105">
+      </div>
+      <p class="text-center text-gray-300 text-sm mt-3">
+        📊 Risks & Numbers — Deaths, Evacuations, and Losses
+      </p>
+    </div>
+
+    <!-- Image 3 -->
+    <div class="w-full md:w-1/3 bg-[#1a1a1a] rounded-xl shadow-xl overflow-hidden flex flex-col">
+      <div class="h-80 flex items-center justify-center bg-black">
+        <img src="img/nasamap.jpg" alt="NASA Heat Map" 
+             class="max-h-full max-w-full object-contain transform transition duration-500 hover:scale-105">
+      </div>
+      <p class="text-center text-gray-300 text-sm mt-3">
+        🌡️ NASA Satellite Data — Urban Heat Islands & Fire Zones
+      </p>
+    </div>
+
+  </div>
+</section>
+
+   
+        
+        <!-- Section targets for navigation -->
+        <div id="present" class="h-12"></div>
+        <div id="future" class="h-12"></div>
+        <div id="chatbot" class="h-12"></div>
+    </main>
+
+    <!-- JavaScript for Fire effect -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // FIRE PARTICLE GENERATION LOGIC (Fires start from the entire page body)
+            const fireContainer = document.getElementById('fire-container');
+            if (fireContainer) {
+                const particleCount = 40; 
+                const fireIcon = '🔥'; 
+
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('fire-particle');
+                    particle.textContent = fireIcon;
+
+                    // Randomize starting position (X-axis)
+                    const startX = Math.random() * 100; 
+                    particle.style.left = `${startX}%`;
+
+                    // Randomize animation duration 
+                    const duration = 12 + Math.random() * 12; // 12s to 24s
+                    particle.style.animationDuration = `${duration}s`;
+
+                    // Randomize delay so they don't all start at once
+                    const delay = Math.random() * 15; // 0s to 15s delay
+                    particle.style.animationDelay = `${delay}s`;
+                    
+                    // Randomize size slightly
+                    const size = 1.2 + Math.random() * 1.8; 
+                    particle.style.fontSize = `${size}rem`;
+
+                    fireContainer.appendChild(particle);
+                }
+            }
+        });
+    </script>
+<link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
+<script type="module">
+	import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+
+	createChat({
+		webhookUrl: 'https://twinkleteam.app.n8n.cloud/webhook/a301abf0-446a-4fa9-b4ad-be401082c0da/chat'
+	});
+</script>
+</body>
+</html>
